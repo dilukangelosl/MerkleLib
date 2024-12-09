@@ -1,0 +1,17 @@
+{
+  "name": "merklelib-example",
+  "version": "1.0.0",
+  "description": "Example usage of @dilukangelo/merklelib",
+  "scripts": {
+    "prebuild": "cd .. && npm run build",
+    "build": "tsc",
+    "start": "node dist/demo.js"
+  },
+  "dependencies": {
+    "ethers": "^6.7.1",
+     "@dilukangelo/merklelib": "file:../"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
