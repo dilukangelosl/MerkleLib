@@ -1,9 +1,13 @@
 {
   "name": "@dilukangelo/merklelib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A TypeScript library for generating Merkle trees and proofs with Solidity data types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dilukangelosl/MerkleLib"
+  },
   "files": [
     "dist",
     "README.md"
