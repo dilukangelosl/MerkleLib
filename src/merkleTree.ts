@@ -7,6 +7,9 @@ export class MerkleTree {
   private readonly sortPairs: boolean;
 
   constructor(private readonly data: LeafNode[], options: MerkleTreeOptions = {}) {
+    if (!data || data.length === 0) {
+      throw new Error('Data array cannot be empty');
+    }
     this.sortPairs = options.sortPairs ?? true;
     this.leaves = this.generateLeaves();
   }
