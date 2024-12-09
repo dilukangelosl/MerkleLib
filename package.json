@@ -1,0 +1,33 @@
+{
+  "name": "merklelib",
+  "version": "1.0.0",
+  "description": "A TypeScript library for generating Merkle trees and proofs with Solidity data types",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "merkle-tree",
+    "solidity",
+    "ethereum",
+    "typescript",
+    "blockchain",
+    "proof"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.8.2",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "ethers": "^6.7.1",
+    "keccak256": "^1.0.6"
+  }
+}
