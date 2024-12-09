@@ -1,3 +1,4 @@
+<!-- ♥ -->
 # MerkleLib
 
 A TypeScript library for generating Merkle trees and proofs with Solidity data types support. This library makes it easy to create Merkle trees with various Solidity data types and generate proofs for verification.
