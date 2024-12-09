@@ -28,12 +28,16 @@ const merkleTree = new MerkleTree(data);
 const root = merkleTree.getRoot();
 console.log('Merkle Root:', root);
 
-// Get proof for the first element (index 0)
-const proof = merkleTree.getProof(0);
-console.log('Proof:', proof);
+// Method 1: Get proof using index
+const proofByIndex = merkleTree.getProof(0);
+console.log('Proof by index:', proofByIndex);
 
-// Verify the proof
-const isValid = merkleTree.verify(proof);
+// Method 2: Get proof using value (new!)
+const proofByValue = merkleTree.getProofByValue('0x1234567890123456789012345678901234567890', 'address');
+console.log('Proof by value:', proofByValue);
+
+// Verify the proof (works the same for both methods)
+const isValid = merkleTree.verify(proofByValue);
 console.log('Proof is valid:', isValid);
 ```
 
@@ -67,8 +71,10 @@ const merkleTree = new MerkleTree(leaves);
 const root = merkleTree.getRoot();
 console.log('Merkle Root:', root);
 
-// Generate proof for a specific address (example for first address)
-const proof = merkleTree.getProof(0);
+// Generate proof for a specific address
+// You can now directly use the address value instead of finding its index!
+const addressToProve = "0x1234567890123456789012345678901234567890";
+const proof = merkleTree.getProofByValue(addressToProve, 'address');
 console.log('Proof for address:', proof);
 
 // Verify the proof
@@ -152,12 +158,8 @@ async function mintNFT(
     }));
     const merkleTree = new MerkleTree(leaves);
 
-    // Find index of user address
-    const userIndex = whitelistAddresses.indexOf(userAddress);
-    if (userIndex === -1) throw new Error('Address not whitelisted');
-
-    // Get proof for user
-    const proof = merkleTree.getProof(userIndex);
+    // Get proof directly using the user's address
+    const proof = merkleTree.getProofByValue(userAddress, 'address');
 
     // Connect to contract
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -210,6 +212,17 @@ Generates a Merkle proof for the leaf at the specified index.
   - `leaf`: The leaf value
   - `proof`: Array of proof elements
   - `root`: The Merkle root
+
+##### `getProofByValue(value: any, type: SolidityType): MerkleProof`
+Generates a Merkle proof for a leaf with the specified value and type. This is a more convenient way to get proofs when you know the value but not its index.
+- Parameters:
+  - `value`: The value to generate proof for (must match exactly with a value in the tree)
+  - `type`: The Solidity type of the value
+- Returns: `MerkleProof` object containing:
+  - `leaf`: The leaf value
+  - `proof`: Array of proof elements
+  - `root`: The Merkle root
+- Throws: Error if the value is not found in the tree
 
 ##### `verify(proof: MerkleProof): boolean`
 Verifies a Merkle proof.

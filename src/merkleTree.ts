@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
 import keccak256 from 'keccak256';
-import { SolidityType, LeafNode, MerkleTreeOptions, MerkleProof } from './types';
+import { SolidityType, LeafNode, MerkleTreeOptions, MerkleProof, IMerkleTree } from './types';
 
-export class MerkleTree {
+export class MerkleTree implements IMerkleTree {
   private leaves: string[];
   private readonly sortPairs: boolean;
 
@@ -77,6 +77,18 @@ export class MerkleTree {
     }
 
     return level[0];
+  }
+
+  public getProofByValue(value: any, type: SolidityType): MerkleProof {
+    const leafToFind = { value, type };
+    const leafHash = this.hashLeaf(leafToFind);
+    const index = this.leaves.findIndex(leaf => leaf === leafHash);
+    
+    if (index === -1) {
+      throw new Error('Value not found in the Merkle tree');
+    }
+
+    return this.getProof(index);
   }
 
   public getProof(index: number): MerkleProof {

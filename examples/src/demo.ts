@@ -26,29 +26,46 @@ async function main() {
   const root = merkleTree.getRoot();
   console.log("\nMerkle Root:", root);
 
-  // Generate and verify a proof for the first element
+  // Method 1: Generate proof using index
   const proofIndex = 0;
   console.log(
-    `\nGenerating proof for leaf ${proofIndex} (${data[proofIndex].value})`
+    `\nMethod 1 - Generating proof using index ${proofIndex} (${data[proofIndex].value})`
   );
 
-  const proof = merkleTree.getProof(proofIndex);
-  console.log("Proof:", {
-    leaf: proof.leaf,
-    proofElements: proof.proof,
-    root: proof.root,
+  const proofByIndex = merkleTree.getProof(proofIndex);
+  console.log("Proof by index:", {
+    leaf: proofByIndex.leaf,
+    proofElements: proofByIndex.proof,
+    root: proofByIndex.root,
   });
 
-  // Verify the proof
-  const isValid = merkleTree.verify(proof);
-  console.log("\nProof verification:", isValid ? "Valid ✅" : "Invalid ❌");
+  // Method 2: Generate proof using value
+  const valueToProve = "Hello Merkle Tree";
+  console.log(
+    `\nMethod 2 - Generating proof using value "${valueToProve}"`
+  );
 
-  // Example of generating proofs for all elements
-  console.log("\nGenerating and verifying proofs for all elements:");
-  data.forEach((_, index) => {
-    const itemProof = merkleTree.getProof(index);
+  const proofByValue = merkleTree.getProofByValue(valueToProve, "string");
+  console.log("Proof by value:", {
+    leaf: proofByValue.leaf,
+    proofElements: proofByValue.proof,
+    root: proofByValue.root,
+  });
+
+  // Verify both proofs
+  const isValidIndex = merkleTree.verify(proofByIndex);
+  const isValidValue = merkleTree.verify(proofByValue);
+  
+  console.log("\nProof Verifications:");
+  console.log("Index-based proof:", isValidIndex ? "Valid ✅" : "Invalid ❌");
+  console.log("Value-based proof:", isValidValue ? "Valid ✅" : "Invalid ❌");
+
+  // Example of generating proofs for all elements using values
+  console.log("\nGenerating and verifying proofs for all elements using values:");
+  data.forEach((item) => {
+    const itemProof = merkleTree.getProofByValue(item.value, item.type);
     const isValidProof = merkleTree.verify(itemProof);
-    console.log(`Leaf ${index}: ${isValidProof ? "Valid ✅" : "Invalid ❌"}`);
+    console.log(`Value "${item.value}": ${isValidProof ? "Valid ✅" : "Invalid ❌"}`);
   });
 }
 

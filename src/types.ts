@@ -14,3 +14,10 @@ export interface MerkleProof {
   proof: string[];
   root: string;
 }
+
+export interface IMerkleTree {
+  getRoot(): string;
+  getProof(index: number): MerkleProof;
+  getProofByValue(value: any, type: SolidityType): MerkleProof;
+  verify(proof: MerkleProof): boolean;
+}
