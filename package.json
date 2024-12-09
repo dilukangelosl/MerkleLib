@@ -2,8 +2,15 @@
   "name": "@dilukangelo/merklelib",
   "version": "1.0.4",
   "description": "A TypeScript library for generating Merkle trees and proofs with Solidity data types",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "dist/esm/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/dilukangelosl/MerkleLib"
@@ -13,7 +20,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "prepare": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch"
