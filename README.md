@@ -5,13 +5,13 @@ A TypeScript library for generating Merkle trees and proofs with Solidity data t
 ## Installation
 
 ```bash
-npm install merklelib
+npm install @dilukangelo/merklelib
 ```
 
 ## Usage
 
 ```typescript
-import { MerkleTree, LeafNode } from 'merklelib';
+import { MerkleTree, LeafNode } from '@dilukangelo/merklelib';
 
 // Example with different Solidity types
 const data: LeafNode[] = [

@@ -1,5 +1,5 @@
 {
-  "name": "merklelib",
+  "name": "@dilukangelo/merklelib",
   "version": "1.0.0",
   "description": "A TypeScript library for generating Merkle trees and proofs with Solidity data types",
   "main": "dist/index.js",
